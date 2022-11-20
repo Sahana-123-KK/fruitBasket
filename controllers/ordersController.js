@@ -35,8 +35,25 @@ const createOrder = async (req, res) => {
 
 const getUserOrders = async (req, res) => {
   try {
+    let properOrders = [];
     const orders = await OrderModel.find({ user: req.data.user });
-    res.json({ orders });
+    properOrders = await Promise.all(
+      //-->very useFul when we need to do a findOne inside a loop/map fnc
+      orders.map((item) => {
+        // console.log(item);
+        return FruitModel.findById(item.items[0].fruitId.toString()); //-->because the fruitId, is obtained from db,so it will have ObjectId,so need to convert it into String
+
+        // user: item.user.toString(),
+        // id: item._id.toString(),
+      })
+    );
+    let correct = [];
+    correct = properOrders.map((order, ind) => {
+      return { orderId: orders[ind]._id, order };
+    });
+    //-->We want our order ids too to be sent along with the fruit details, so that,we can do delete req from frontend
+
+    res.json({ user: req.data.user, orders: correct });
   } catch (error) {
     console.log(error);
   }
