@@ -6,10 +6,27 @@ const FruitModel = require("../models/FruitModel");
 const createFruits = async (req, res) => {
   //   res.send("This is create endpt");
   let success = false;
-  const { name, description, offer, quantity, price, rating, image, count } =
-    req.body;
+  const {
+    name,
+    description,
+    offer,
+    quantity,
+    price,
+    rating,
+    image,
+    count,
+    pieces,
+  } = req.body;
 
-  if (!name || !description || !offer || !quantity || !price || !rating) {
+  if (
+    !name ||
+    !description ||
+    !offer ||
+    !quantity ||
+    !price ||
+    !rating ||
+    !pieces
+  ) {
     return res
       .status(402)
       .json({ success, message: "Enter all Mandatory Fields" });
@@ -24,6 +41,7 @@ const createFruits = async (req, res) => {
       rating,
       image,
       count,
+      pieces,
     });
     success = true;
 
@@ -49,6 +67,7 @@ const updateFruits = async (req, res) => {
   let success = false;
   const {
     name,
+    pieces,
     description,
     offer,
     quantity,
@@ -87,6 +106,9 @@ const updateFruits = async (req, res) => {
   }
   if (count) {
     upFruit.count = count;
+  }
+  if (pieces) {
+    upFruit.pieces = pieces;
   }
 
   try {

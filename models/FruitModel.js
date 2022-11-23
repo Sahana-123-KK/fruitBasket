@@ -13,6 +13,10 @@ const FruitSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  pieces: {
+    type: Number, //-->Says no of pieces per pack
+    required: true,
+  },
   isAvailable: {
     type: Boolean,
     default: true,
