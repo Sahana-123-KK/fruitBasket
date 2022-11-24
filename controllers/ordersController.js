@@ -49,7 +49,12 @@ const getUserOrders = async (req, res) => {
     );
     let correct = [];
     correct = properOrders.map((order, ind) => {
-      return { orderId: orders[ind]._id, order };
+      return {
+        orderId: orders[ind]._id,
+        order,
+        address: orders[ind].address,
+        cost: orders[ind].cost,
+      };
     });
     //-->We want our order ids too to be sent along with the fruit details, so that,we can do delete req from frontend
 

@@ -34,9 +34,11 @@ const signup = async (req, res) => {
     );
     success = true;
 
-    res
-      .cookie("token", token, { httpOnly: true })
-      .json({ success, user: { name: newUser.name, email: newUser.email } });
+    res.cookie("token", token, { httpOnly: true }).json({
+      success,
+      user: { name: newUser.name, email: newUser.email },
+      token,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -65,12 +67,23 @@ const login = async (req, res) => {
       JWTKEY
     );
     success = true;
+    // res.cookie("token", token, {
+    //   expires: new Date(Date.now() + 20000000000),
+    //   httpOnly: true,
+    // });
+    // res.status(200).json({ success, user: { name: isEmail.name, email } });
     res
       .cookie("token", token, { httpOnly: true })
-      .json({ success, user: { name: isEmail.name, email } });
+      .json({ success, user: { name: isEmail.name, email }, token });
   } catch (error) {
     console.log(error);
   }
 };
 
-module.exports = { signup, login };
+const logout = async (req, res) => {
+  console.log("Logging Out");
+  res.clearCookie("token");
+  res.send("Logged Out Successfully");
+};
+
+module.exports = { signup, login, logout };
