@@ -24,7 +24,7 @@ const createOrder = async (req, res) => {
         { new: true }
       );
       success = true;
-      res.json({ success, newOrder, updateCount });
+      res.json({ success, newOrder });
     } else {
       return res.status(402).json({ error: "No Stock to Place Order" });
     }
