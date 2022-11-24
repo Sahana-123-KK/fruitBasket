@@ -35,7 +35,7 @@ const signup = async (req, res) => {
     success = true;
 
     res
-      .cookie("jwtoken", token, { httpOnly: true })
+      .cookie("token", token, { httpOnly: true })
       .json({ success, user: { name: newUser.name, email: newUser.email } });
   } catch (error) {
     console.log(error);
@@ -66,7 +66,7 @@ const login = async (req, res) => {
     );
     success = true;
     res
-      .cookie("jwtoken", token, { httpOnly: true })
+      .cookie("token", token, { httpOnly: true })
       .json({ success, user: { name: isEmail.name, email } });
   } catch (error) {
     console.log(error);

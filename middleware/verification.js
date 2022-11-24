@@ -3,7 +3,7 @@ const JWTKEY =
   "ILOVEMYSELFANDIWOULDLIKETOTHANKGODWHOGAVEEVERTHINGANDIWOULDSAYILOVEMYSELF";
 const verifyToken = async (req, res, next) => {
   try {
-    const token = req.cookies.jwtoken;
+    const token = req.cookies.token;
 
     if (!token) {
       return res.status(402).json({ error: "NO Token" });
