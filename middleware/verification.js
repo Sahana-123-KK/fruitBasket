@@ -1,13 +1,16 @@
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/UserModel");
+const cookieparser = require("cookie-parser");
+
 const JWTKEY =
   "ILOVEMYSELFANDIWOULDLIKETOTHANKGODWHOGAVEEVERTHINGANDIWOULDSAYILOVEMYSELF";
 const verifyToken = async (req, res, next) => {
   try {
-    const token =
-      //  req.cookies.token || //-->For now made with header token but we will fix this with cookies in future
-      req.header("token");
+    const token = req.header("token");
+    //  req.cookies.token;
+    //-->For now made with header token but we will fix this with cookies in future
     // console.log(req.header("token"));
+    // console.log(token);
 
     if (!token) {
       return res.status(402).json({ error: "NO Token" });
@@ -17,7 +20,7 @@ const verifyToken = async (req, res, next) => {
       return res.status(402).json({ error: "Not a valid Token" });
     }
     req.data = data;
-    req.userdata = await UserModel.findById(data.user);//-->We want user info completely
+    req.userdata = await UserModel.findById(data.user); //-->We want user info completely
     // console.log(req.userdata);
     next();
   } catch (error) {

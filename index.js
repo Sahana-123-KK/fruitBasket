@@ -2,11 +2,13 @@ const express = require("express");
 // const mongoose = require("mongoose");
 const connectDb = require("./db/connect");
 const cors = require("cors");
-const cookie = require("cookie-parser");
-const app = express();
-app.use(cookie());
+// const cookie = require("cookie-parser");
+const cookieparser = require("cookie-parser");
 
-app.use(cors());
+const app = express();
+app.use(cookieparser());
+
+app.use(cors({ credentials: true })); //When we exchage cookies and stuff , we need to make this true and in frontend credentials: 'include' must be included when we use cors
 app.use(express.json());
 connectDb();
 
