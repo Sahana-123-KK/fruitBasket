@@ -17,6 +17,7 @@ app.get("/", (req, res) => {
 app.use("/api/fruits", require("./router/fruitRoutes"));
 app.use("/api/auth", require("./router/authRoutes"));
 app.use("/api/orders", require("./router/orderRoutes"));
+app.use("/api/comments", require("./router/commentRoutes"));
 
 app.listen(8000, () => {
   //--> We use listen for setting port

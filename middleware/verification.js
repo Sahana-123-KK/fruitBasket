@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const UserModel = require("../models/UserModel");
 const JWTKEY =
   "ILOVEMYSELFANDIWOULDLIKETOTHANKGODWHOGAVEEVERTHINGANDIWOULDSAYILOVEMYSELF";
 const verifyToken = async (req, res, next) => {
@@ -16,6 +17,8 @@ const verifyToken = async (req, res, next) => {
       return res.status(402).json({ error: "Not a valid Token" });
     }
     req.data = data;
+    req.userdata = await UserModel.findById(data.user);//-->We want user info completely
+    // console.log(req.userdata);
     next();
   } catch (error) {
     console.log(error);
