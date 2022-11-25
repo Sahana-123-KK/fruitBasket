@@ -5,6 +5,7 @@ const {
   createComment,
   updateComment,
   deletecomment,
+  getCommentsForFruit,
   getComments,
 } = require("../controllers/commentsControllers");
 const { verifyToken } = require("../middleware/verification");
@@ -13,6 +14,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/create", verifyToken, createComment);
+router.get("/get/:id", getCommentsForFruit);
 router.get("/get", getComments);
 router.delete("/delete/:id", verifyToken, deletecomment);
 router.put("/update/:id", verifyToken, updateComment);

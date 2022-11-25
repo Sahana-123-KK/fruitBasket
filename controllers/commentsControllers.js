@@ -1,5 +1,7 @@
 const { default: mongoose } = require("mongoose");
+const { syncIndexes } = require("../models/CommentsModel");
 const commentModel = require("../models/CommentsModel");
+const fruitModel = require("../models/FruitModel");
 
 const createComment = async (req, res) => {
   //   res.send("hello");
@@ -97,4 +99,29 @@ const updateComment = async (req, res) => {
   }
 };
 
-module.exports = { createComment, getComments, deletecomment, updateComment };
+const getCommentsForFruit = async (req, res) => {
+  const { id } = req.params;
+  let success = false;
+
+  try {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(402).json({ success, error: "Invalid id" });
+    }
+    const commentsForFruit = await commentModel.find({ fruitId: id });
+    // if (!isExist) {
+    //   return res.status(404).json({ success, error: "Not Found" });
+    // }
+    success = true;
+    res.json({ success, commentsForFruit });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+module.exports = {
+  createComment,
+  getComments,
+  deletecomment,
+  updateComment,
+  getCommentsForFruit,
+};

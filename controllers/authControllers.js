@@ -36,7 +36,7 @@ const signup = async (req, res) => {
 
     res.cookie("token", token, { httpOnly: true }).json({
       success,
-      user: { name: newUser.name, email: newUser.email },
+      user: { name: newUser.name, email: newUser.email, id: newUser._id },
       token,
     });
   } catch (error) {
@@ -72,9 +72,11 @@ const login = async (req, res) => {
     //   httpOnly: true,
     // });
     // res.status(200).json({ success, user: { name: isEmail.name, email } });
-    res
-      .cookie("token", token, { httpOnly: true })
-      .json({ success, user: { name: isEmail.name, email }, token });
+    res.cookie("token", token, { httpOnly: true }).json({
+      success,
+      user: { name: isEmail.name, email, id: isEmail._id },
+      token,
+    });
   } catch (error) {
     console.log(error);
   }
